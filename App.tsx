@@ -1,21 +1,16 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import firebase from 'firebase';
+import AuthNavigator from "./src/navigation/AuthNavigator";
+import {environment} from "./src/environment/environment";
 
 export default function App() {
+  if (!firebase.apps.length) {
+    firebase.initializeApp(environment.firebaseConfig);
+  }else {
+    firebase.app(); // if already initialized, use that one
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+      <AuthNavigator />
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
