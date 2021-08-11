@@ -25,9 +25,9 @@ export const logout = async () => {
 export const createUser = async (user: User) => {
     console.log('createUser', user.toJSON());
     try {
-        const response = await firebase.firestore().collection('users').doc(user.id);
+        const response = firebase.firestore().collection('users').doc(user.id);
         user.id = response.id;
-        response.set(user.toJSON());
+        await response.set(user.toJSON());
     } catch (e) {
         console.log(e);
     }
@@ -42,7 +42,7 @@ export const updateUser = async (user: any) => {
     }
 }
 
-export const getUser = async (userId: string) => {
+export const getUserProfile = async (userId: string) => {
     try {
         return await firebase.firestore().collection('users').doc(userId);
     } catch (e) {

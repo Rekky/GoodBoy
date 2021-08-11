@@ -2,7 +2,7 @@ import React, { useState, useEffect, createContext } from 'react'
 import firebase from 'firebase';
 import SignInStack from './SignInStack'
 import SignOutStack from './SignOutStack'
-import {LogBox, View, Text} from 'react-native';
+import {LogBox} from 'react-native';
 
 LogBox.ignoreLogs(['Setting a timer']);
 
@@ -16,7 +16,6 @@ const AuthNavigator = () => {
 
     function onAuthStateChanged(result: any) {
         setUser(result);
-        console.log(user);
         if (initializing) setInitializing(false);
     }
 

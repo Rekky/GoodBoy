@@ -19,7 +19,7 @@ const SignInStack = () => {
     return (
         <NavigationContainer theme={MyTheme}>
             <Stack.Navigator headerMode="none">
-                <Stack.Screen name="Home" component={Tabs}/>
+                <Stack.Screen name="Tabs" component={Tabs} />
             </Stack.Navigator>
         </NavigationContainer>
     )

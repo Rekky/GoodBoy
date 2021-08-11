@@ -19,7 +19,7 @@ export const COLORS = {
 
     red: '#f44336',
     redLight: '#ef9a9a',
-    redDArk: '#c62828',
+    redDark: '#c62828',
 
     pink: '#f06292',
     pinkLight: '#fde2ea',

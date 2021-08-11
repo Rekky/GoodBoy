@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {StyleSheet, View, Text, StatusBar} from "react-native";
 
 
-export default function HomeScreen() {
+export default function HomeScreen({route}: any) {
 
     useEffect(() => {
 
@@ -10,6 +10,7 @@ export default function HomeScreen() {
 
     return(
         <View style={styles.container}>
+            <Text>uid: {route.params.user.uid}</Text>
             <Text>Homeeee</Text>
         </View>
     )
