@@ -8,6 +8,7 @@ export const COLORS = {
     black: '#282828',
     light: '#fdfdfd',
     dark: '#14273e',
+    darkOcean: '#50586a',
 
     gray: '#a5acb5',
     grayLight: 'rgba(239,243,246,0.67)',
