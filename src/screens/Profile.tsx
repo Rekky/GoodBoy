@@ -7,7 +7,7 @@ import firebase from "firebase";
 import {StarsIndicator} from "../components/StarsIndicator";
 
 
-export default function ProfileScreen({route}: any) {
+export default function ProfileScreen({route, navigation}: any) {
 
     const [profile, setProfile] = useState({});
 
@@ -45,10 +45,10 @@ export default function ProfileScreen({route}: any) {
                     </View>
                     <Text style={[styles.boxContainer, STYLES_AUX.pt_3, STYLES_AUX.label]}>CUENTA</Text>
                     <View style={[STYLES_AUX.mt_2, styles.boxContainer, {backgroundColor: COLORS.white}]}>
-                        <View style={styles.listItem}>
+                        <Pressable style={styles.listItem} onPress={() => navigation.navigate('Settings')}>
                             <Image source={require('../../assets/icons/settings.png')} style={[STYLES_AUX.mr_2, {width: 30, height: 30, tintColor: COLORS.grayDark}]} />
                             <Text style={{fontSize: 18, color: COLORS.grayDark}}>Configuración</Text>
-                        </View>
+                        </Pressable>
                     </View>
                 </ScrollView>
             </SafeAreaView>
