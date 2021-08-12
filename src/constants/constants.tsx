@@ -206,9 +206,21 @@ export const STYLES_INPUTS = StyleSheet.create({
 });
 
 export const STYLES_AUX = StyleSheet.create({
-   mb_1: {
+    mt_1: {
+        marginTop: 5
+    },
+    mt_2: {
+        marginTop: 10
+    },
+    mt_3: {
+        marginTop: 30
+    },
+    mt_4: {
+        marginTop: 40
+    },
+    mb_1: {
        marginBottom: 5
-   },
+    },
     mb_2: {
         marginBottom: 10
     },
@@ -217,5 +229,45 @@ export const STYLES_AUX = StyleSheet.create({
     },
     mb_4: {
         marginBottom: 40
+    },
+    ml_1: {
+        marginLeft: 5
+    },
+    ml_2: {
+        marginLeft: 10
+    },
+    ml_3: {
+        marginLeft: 30
+    },
+    ml_4: {
+        marginLeft: 40
+    },
+    mr_1: {
+        marginRight: 5
+    },
+    mr_2: {
+        marginRight: 10
+    },
+    mr_3: {
+        marginRight: 30
+    },
+    mr_4: {
+        marginRight: 40
+    },
+    pt_1: {
+        paddingTop: 5
+    },
+    pt_2: {
+        paddingTop: 10
+    },
+    pt_3: {
+        paddingTop: 30
+    },
+    pt_4: {
+        paddingTop: 40
+    },
+    label: {
+        color: COLORS.darkOcean,
+        fontWeight: '700'
     }
 });

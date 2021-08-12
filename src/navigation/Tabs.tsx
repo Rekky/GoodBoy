@@ -25,8 +25,8 @@ const Tabs = () => {
                             height: 80,
                             borderRadius: 30,
                             borderTopWidth: 0,
-                            marginBottom: 20,
-                            marginHorizontal: 20,
+                            marginBottom: 10,
+                            marginHorizontal: 13,
                             elevation: 60
                         }
                     }}>

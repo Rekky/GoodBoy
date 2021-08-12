@@ -2,7 +2,7 @@ import React from "react";
 import {Image, Pressable, StyleSheet, View, Text, ActivityIndicator} from "react-native";
 import {COLORS} from "../constants/constants";
 
-export const ProfileImage = ({uri, loading, onChange, editable}: any) => {
+export const ProfileImage = ({uri, loading = false, onChange, editable = false}: {uri?: string, loading?: boolean, onChange?: any, editable?: boolean}) => {
 
     const onUpload = () => {
         onChange(true);
