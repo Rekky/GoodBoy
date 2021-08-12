@@ -33,8 +33,13 @@ export default function ProfileScreen({route}: any) {
                 <View style={{width: 100, height: 100}}>
                     <ProfileImage editable={true}/>
                 </View>
-                {/*<Text style={styles.profileText}>{profile.name}</Text>*/}
-                <Text style={styles.profileText}>sarah smith</Text>
+                <Text style={styles.profileText}>{profile.name}</Text>
+            </View>
+            <View style={styles.profileInfoContainer}>
+                <Text>Puntuación actual</Text>
+            </View>
+            <View style={styles.profileInfoContainer}>
+                <Text>Mascotas</Text>
             </View>
             <View style={styles.profileInfoContainer}>
                 <Pressable onPress={signOut} style={[STYLES_BUTTON.buttonBasic, {backgroundColor: COLORS.dark}]}>
