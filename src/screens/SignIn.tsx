@@ -37,10 +37,10 @@ const SignInScreen = () => {
     return (
         showSignInForm? (
         <View style={styles.container}>
-            <View style={{flex: 1, paddingTop: 150, width: '100%', justifyContent: 'center', alignItems: 'center'}}>
+            <View style={{flex: 1, paddingTop: 120, width: '100%', justifyContent: 'center', alignItems: 'center'}}>
                 <Text style={styles.title}>GoodBoy</Text>
             </View>
-            <View style={{flex: 3, width: '100%', justifyContent: 'center', alignItems: 'center'}}>
+            <View style={{flex: 2, width: '100%', justifyContent: 'center', alignItems: 'center'}}>
                 <View style={styles.firstStepContainer}>
                     <View style={styles.boxContainer}>
                         <TextInput value={loginEmail} onChangeText={e => setLoginEmail(e)} style={[STYLES_INPUTS.inputText, STYLES_AUX.mb_2]} placeholder="Correo"/>
@@ -60,7 +60,7 @@ const SignInScreen = () => {
                     <View style={[styles.boxContainer, {flexDirection: 'row', marginTop: 60}]}>
                         <Text>No estas registrado?</Text>
                         <Pressable onPress={() => setShowSignInForm(false)} style={{marginLeft: 10}}>
-                            <Text style={{color: COLORS.primary}}>Crear una cuenta</Text>
+                            <Text style={{fontSize:16, color: COLORS.primary}}>Crear una cuenta</Text>
                         </Pressable>
                     </View>
                 </View>
@@ -93,6 +93,6 @@ const styles = StyleSheet.create({
         marginVertical: 10
     },
     title: {
-        fontSize: 40,
+        fontSize: 40
     }
 });
