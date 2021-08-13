@@ -30,7 +30,7 @@ const AuthNavigator = () => {
 
     return user ? (
         <AuthContext.Provider value={user}>
-             <SignInStack/>
+             <SignInStack user={user}/>
         </AuthContext.Provider>
     ) : (
         <SignOutStack />

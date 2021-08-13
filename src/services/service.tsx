@@ -1,5 +1,6 @@
 import firebase from "firebase";
 import {User} from "../models/User";
+import {Ad} from "../models/Ad";
 
 export const login = async (email: string, password: string) => {
     return await firebase.auth().signInWithEmailAndPassword(email, password);
@@ -48,6 +49,12 @@ export const getUserProfile = async (userId: string) => {
     } catch (e) {
         console.log(e);
     }
+}
+
+export const createAd = async (userId: string, ad: Ad) => {
+    const response = await firebase.firestore().collection('ads').add(ad);
+    ad.id = response.id;
+    return await response.set(ad);
 }
 
 export const saveImageToFirebaseStorage = async (userId: string, videoPath: string) => {

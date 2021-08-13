@@ -1,21 +1,47 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, View, Text, StatusBar, Pressable, TextInput, Image} from "react-native";
+import {StyleSheet, View, Text, StatusBar, Pressable, TextInput, Image, Alert} from "react-native";
 import {COLORS, STYLES_AUX, STYLES_BUTTON, STYLES_INPUTS} from "../constants/constants";
+import {Ad} from "../models/Ad";
+import {createAd} from "../services/service";
+import firebase from "firebase";
 
 
-export default function AdEditScreen({navigation}: any) {
+export default function AdEditScreen({navigation, route}: any) {
 
-    const [description, setDescription] = useState('');
     const [title, setTitle] = useState('');
-    const [price, setPrice] = useState('');
+    const [price, setPrice] = useState(0);
+    const [description, setDescription] = useState('');
     const [scheduler, setScheduler] = useState('');
 
-    useEffect(() => {
+    const [ad, setAd] = useState({});
 
+    useEffect(() => {
+        async function getAd() {
+            const res = await firebase.firestore().collection('ads').where('author', '==', firebase.auth().currentUser.uid).get();
+            res.docs.map((item) => {
+                if(item.data().kind == 'lodging') {
+                    setAd(item.data());
+                    setTitle(item.data().title);
+                    setDescription(item.data().description);
+                    setPrice(item.data().price);
+                }
+            });
+        }
+        getAd();
     }, [])
 
-    const save = () => {
-        const ad = {}
+    const save = async () => {
+        const ad: Ad = new Ad();
+        ad.title = title;
+        ad.author = firebase.auth().currentUser.uid;
+        ad.description = description;
+        ad.price = price;
+
+        try {
+            await createAd(ad.author, ad.toJSON());
+        } catch (e) {
+            Alert.alert('', e);
+        }
     }
 
     const remove = () => {
@@ -30,7 +56,7 @@ export default function AdEditScreen({navigation}: any) {
                 </Pressable>
             </View>
             <View style={{justifyContent: 'center', alignItems: 'center', flexDirection: 'row', marginBottom: 20}}>
-                <Pressable onPress={null} style={{marginRight: 30, borderWidth: 2, borderColor: COLORS.gray}}>
+                <Pressable onPress={null} style={{marginRight: 30}}>
                     <Text style={{fontSize: 20}}>Cuidados</Text>
                 </Pressable>
                 <Pressable onPress={null}>
@@ -39,11 +65,11 @@ export default function AdEditScreen({navigation}: any) {
             </View>
             <View style={styles.boxContainer}>
                 <Text style={[STYLES_AUX.label, STYLES_AUX.mt_2]}>Titulo</Text>
-                <TextInput style={STYLES_INPUTS.inputText} placeholder={'Título'} onChangeText={(text: string) => setTitle(text)} maxLength={100}/>
+                <TextInput style={STYLES_INPUTS.inputText} placeholder={'Título'} onChangeText={(text: string) => setTitle(text)} maxLength={100} value={title}/>
                 <Text style={[STYLES_AUX.label, STYLES_AUX.mt_2]}>Descripción</Text>
-                <TextInput style={[STYLES_INPUTS.inputText, {height: 135}]} placeholder={'Descripcion de tu servicio'} onChangeText={(text: string) => setDescription(text)} textAlign={'left'} textAlignVertical={'top'} multiline={true} maxLength={250} numberOfLines={5}/>
+                <TextInput style={[STYLES_INPUTS.inputText, {height: 135}]} placeholder={'Descripcion de tu servicio'} onChangeText={(text: string) => setDescription(text)} value={description} textAlign={'left'} textAlignVertical={'top'} multiline={true} maxLength={250} numberOfLines={5}/>
                 <Text style={[STYLES_AUX.label, STYLES_AUX.mt_2]}>Precio</Text>
-                <TextInput style={STYLES_INPUTS.inputText} placeholder={'Precio'} onChangeText={(text: string) => setPrice(text)}/>
+                <TextInput style={STYLES_INPUTS.inputText} placeholder={'Precio'} onChangeText={(text: string) => setPrice(parseInt(text))} keyboardType={"decimal-pad"} value={price.toString()}/>
             </View>
             <View style={[styles.boxContainer, {justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}]}>
                 <Pressable onPress={save} style={[STYLES_BUTTON.buttonBasic, STYLES_AUX.mt_3, {flex: 1, backgroundColor: COLORS.dark}]}>

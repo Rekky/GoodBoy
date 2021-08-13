@@ -194,7 +194,8 @@ export const STYLES_INPUTS = StyleSheet.create({
         backgroundColor: COLORS.white,
         borderRadius: 10,
         paddingHorizontal: 20,
-        paddingVertical: 12
+        paddingVertical: 12,
+        fontSize: 16
     },
     inputTextBordered: {
         width: '100%',

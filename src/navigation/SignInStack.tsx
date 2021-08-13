@@ -8,7 +8,7 @@ import AdEditScreen from "../screens/AdEdit";
 
 const Stack = createStackNavigator();
 
-const SignInStack = () => {
+const SignInStack = ({user}: any) => {
 
     const MyTheme = {
         ...DefaultTheme,
@@ -23,7 +23,7 @@ const SignInStack = () => {
             <Stack.Navigator headerMode="none">
                 <Stack.Screen name="Tabs" component={Tabs} />
                 <Stack.Screen name="Settings" component={SettingsScreen} />
-                <Stack.Screen name="AdEdit" component={AdEditScreen} />
+                <Stack.Screen name="AdEdit" component={AdEditScreen} initialParams={user}/>
             </Stack.Navigator>
         </NavigationContainer>
     )
