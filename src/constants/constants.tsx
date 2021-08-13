@@ -162,6 +162,7 @@ export const STYLES_BUTTON = StyleSheet.create({
     },
     backButton: {
         position: 'absolute',
+        top: 10,
         left:0,
         width: 50,
         height: 50,
@@ -192,7 +193,8 @@ export const STYLES_INPUTS = StyleSheet.create({
         height: 50,
         backgroundColor: COLORS.white,
         borderRadius: 10,
-        paddingHorizontal: 20
+        paddingHorizontal: 20,
+        paddingVertical: 12
     },
     inputTextBordered: {
         width: '100%',
@@ -268,6 +270,7 @@ export const STYLES_AUX = StyleSheet.create({
     },
     label: {
         color: COLORS.darkOcean,
-        fontWeight: '700'
+        fontWeight: '700',
+        marginBottom: 5
     }
 });
