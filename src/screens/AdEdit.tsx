@@ -39,13 +39,21 @@ export default function AdEditScreen({navigation, route}: any) {
 
         try {
             await createAd(ad.author, ad.toJSON());
+            Alert.alert('Cuidador', 'Tu anuncio ha sido creado y publicado con exito!');
+            navigation.goBack();
         } catch (e) {
             Alert.alert('', e);
         }
     }
 
-    const remove = () => {
-
+    const remove = async () => {
+        try {
+            console.log('DELETEEEEE', ad.id);
+            await firebase.firestore().collection('ads').doc(ad.id).delete();
+            navigation.goBack();
+        } catch (e) {
+            Alert.alert('', e);
+        }
     }
 
     return(
@@ -69,7 +77,7 @@ export default function AdEditScreen({navigation, route}: any) {
                 <Text style={[STYLES_AUX.label, STYLES_AUX.mt_2]}>Descripción</Text>
                 <TextInput style={[STYLES_INPUTS.inputText, {height: 135}]} placeholder={'Descripcion de tu servicio'} onChangeText={(text: string) => setDescription(text)} value={description} textAlign={'left'} textAlignVertical={'top'} multiline={true} maxLength={250} numberOfLines={5}/>
                 <Text style={[STYLES_AUX.label, STYLES_AUX.mt_2]}>Precio</Text>
-                <TextInput style={STYLES_INPUTS.inputText} placeholder={'Precio'} onChangeText={(text: string) => setPrice(parseInt(text))} keyboardType={"decimal-pad"} value={price.toString()}/>
+                <TextInput style={STYLES_INPUTS.inputText} placeholder={'Precio'} onChangeText={(text: string) => setPrice(parseInt(text))} keyboardType={"decimal-pad"} value={isNaN(price) ? '0' : price.toString()}/>
             </View>
             <View style={[styles.boxContainer, {justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}]}>
                 <Pressable onPress={save} style={[STYLES_BUTTON.buttonBasic, STYLES_AUX.mt_3, {flex: 1, backgroundColor: COLORS.dark}]}>
