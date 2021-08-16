@@ -29,7 +29,9 @@ export default function ProfileScreen({route, navigation}: any) {
                 </View>
                 <View style={[STYLES_AUX.ml_2,{flex:1,width: '100%', height: '100%', justifyContent: 'flex-start'}]}>
                     <Text style={[styles.profileText, STYLES_AUX.mb_1]}>{profile.name}</Text>
-                    <StarsIndicator stars={0}/>
+                    <View style={{paddingTop:15, width: '100%', justifyContent: 'flex-start', alignItems: 'center'}}>
+                        <StarsIndicator stars={0}/>
+                    </View>
                 </View>
             </View>
             <SafeAreaView style={{flex:1}}>
