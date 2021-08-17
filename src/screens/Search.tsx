@@ -14,16 +14,24 @@ import {
 import {COLORS, STYLES_AUX, STYLES_INPUTS} from "../constants/constants";
 import firebase from "firebase";
 import AdCard from "../components/AdCard";
+import {Ad} from "../models/Ad";
 
 
 export default function SearchScreen() {
 
-    const [searchText, setSearchText] = useState('');
-    const [results, setResults] = useState([]);
+    const [searchText, setSearchText]: any = useState('');
+    const [results, setResults]: any = useState({});
 
     useEffect(() => {
-        firebase.firestore().collection('ads').where('title', '!=', '0').limit(30).onSnapshot((item: any) => {
-            setResults(item.docs.map((res: any) => res.data()));
+        firebase.firestore().collection('ads').where('title', '!=', '0').limit(30).onSnapshot(async (item: any) => {
+            const resultQuery = await Promise.all(item.docs.map(async (res: any) => {
+                const user = await firebase.firestore().collection('users').doc(res.data().author).get();
+                let ad = new Ad();
+                ad = {... res.data()};
+                ad.author = user.data()?.name;
+                return ad;
+            }));
+            setResults(resultQuery);
         });
     }, [])
 
@@ -42,7 +50,7 @@ export default function SearchScreen() {
                 <SafeAreaView>
                     <FlatList
                         data={results}
-                        renderItem={({item}) => <AdCard ad={item} onPress={null}/>}
+                        renderItem={({item}) => <AdCard ad={item}/>}
                     />
                 </SafeAreaView>
             </View>

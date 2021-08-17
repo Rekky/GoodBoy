@@ -1,20 +1,32 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, View, Text, StatusBar, Pressable, SafeAreaView, ScrollView, Image} from "react-native";
+import {StyleSheet, View, Text, StatusBar, Pressable, SafeAreaView, ScrollView, Image, FlatList} from "react-native";
 import {COLORS, STYLES_AUX, STYLES_BUTTON} from "../constants/constants";
 import ProfileImage from "../components/ProfileImage";
 import firebase from "firebase";
 import {StarsIndicator} from "../components/StarsIndicator";
+import AdCard from "../components/AdCard";
+import {Ad} from "../models/Ad";
+import {User} from "../models/User";
 
 
 export default function ProfileScreen({route, navigation}: any) {
 
-    const [profile, setProfile] = useState({});
+    const [profile, setProfile]: User | any = useState({});
+    const [myAds, setMyAds]: any = useState({});
 
     useEffect(() => {
         const userId = route.params.user.uid;
         const subscriber = firebase.firestore().collection('users').doc(userId).onSnapshot((user: any) => {
+            const userAds = firebase.firestore().collection('ads').where('author', '==', user.data().id).onSnapshot((ads: any) => {
+                const myAdsFound =  ads.docs.map((ad: any) => {
+                    let uad = new Ad();
+                    uad = {... ad.data()}
+                    uad.author = user.data().name;
+                    return uad
+                });
+                setMyAds(myAdsFound);
+            });
             setProfile(user.data());
-            console.log(profile);
         });
         return () => subscriber();
     },[])
@@ -38,11 +50,21 @@ export default function ProfileScreen({route, navigation}: any) {
                 <ScrollView>
                     <Text style={[styles.boxContainer, STYLES_AUX.pt_3, STYLES_AUX.label]}>TU ANUNCIO</Text>
                     <View style={[STYLES_AUX.mt_2, styles.boxContainer, {backgroundColor: COLORS.white}]}>
-                        <View style={{height: 150, borderWidth: 0}}>
-                            <Text>No tienes anuncio</Text>
-                            <Pressable onPress={() => navigation.navigate('AdEdit')} style={[STYLES_BUTTON.buttonBasic, {backgroundColor: COLORS.dark, width: 100}]}>
-                                <Text style={{color: COLORS.white}}>Anunciate</Text>
-                            </Pressable>
+                        <View style={{minHeight: 150, borderWidth: 0}}>
+                            {myAds && myAds.length <= 0 && (
+                                <View>
+                                    <Text>No tienes anuncio</Text>
+                                    <Pressable onPress={() => navigation.navigate('AdEdit')} style={[STYLES_BUTTON.buttonBasic, {backgroundColor: COLORS.dark, width: 100}]}>
+                                    <Text style={{color: COLORS.white}}>Anunciate</Text>
+                                    </Pressable>
+                                </View>
+                            )}
+                            <SafeAreaView>
+                                <FlatList
+                                    data={myAds}
+                                    renderItem={({item}) => <AdCard ad={item} />}
+                                    />
+                            </SafeAreaView>
                         </View>
                     </View>
                     <Text style={[styles.boxContainer, STYLES_AUX.pt_3, STYLES_AUX.label]}>TUS MASCOTAS</Text>
