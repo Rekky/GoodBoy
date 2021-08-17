@@ -50,7 +50,11 @@ export default function SearchScreen() {
                 <SafeAreaView>
                     <FlatList
                         data={results}
-                        renderItem={({item}) => <AdCard ad={item}/>}
+                        renderItem={({item}) =>
+                        <View style={{marginBottom: 20}}>
+                            <AdCard ad={item}/>
+                        </View>
+                        }
                     />
                 </SafeAreaView>
             </View>

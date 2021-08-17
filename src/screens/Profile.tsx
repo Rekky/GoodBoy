@@ -1,5 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, View, Text, StatusBar, Pressable, SafeAreaView, ScrollView, Image, FlatList} from "react-native";
+import {
+    StyleSheet,
+    View,
+    Text,
+    StatusBar,
+    Pressable,
+    SafeAreaView,
+    ScrollView,
+    Image,
+    FlatList,
+    TouchableOpacity
+} from "react-native";
 import {COLORS, STYLES_AUX, STYLES_BUTTON} from "../constants/constants";
 import ProfileImage from "../components/ProfileImage";
 import firebase from "firebase";
@@ -62,7 +73,12 @@ export default function ProfileScreen({route, navigation}: any) {
                             <SafeAreaView>
                                 <FlatList
                                     data={myAds}
-                                    renderItem={({item}) => <AdCard ad={item} />}
+                                    renderItem={({item}) =>
+                                        <View>
+                                            <Pressable style={{width: '100%', height: '100%', position: 'absolute', zIndex: 1}} onPress={() => navigation.navigate('AdEdit')}></Pressable>
+                                            <AdCard ad={item} />
+                                        </View>
+                                    }
                                     />
                             </SafeAreaView>
                         </View>

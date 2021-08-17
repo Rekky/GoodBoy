@@ -32,8 +32,7 @@ const styles = StyleSheet.create({
         width: '100%',
         minHeight: 250,
         borderRadius: 10,
-        backgroundColor: COLORS.white,
-        marginBottom: 20
+        backgroundColor: COLORS.white
     },
     author: {
         paddingTop: 20,
