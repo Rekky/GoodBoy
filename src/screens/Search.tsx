@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
     container: {
         flex:1,
         paddingTop: StatusBar.currentHeight,
+        marginBottom: 100
     },
     boxContainer: {
         paddingHorizontal: 15,
