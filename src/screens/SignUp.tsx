@@ -31,15 +31,15 @@ const SignUpScreen = ({onCreateAccount, onBack}: any) => {
 
     return (
         <View style={styles.container}>
+            <Pressable onPress={() => onBack(true)} style={[STYLES_BUTTON.backButton, {top: StatusBar.currentHeight, left: 20}]}>
+                <Image source={require('../../assets/icons/arrowLeft.png')} resizeMode={'contain'} style={{width: 30, height: 30}}/>
+            </Pressable>
             <View style={styles.firstStepContainer}>
-                <Pressable onPress={() => onBack(true)} style={[STYLES_BUTTON.backButton, {top: StatusBar.currentHeight, left: 20}]}>
-                    <Image source={require('../../assets/icons/arrowLeft.png')} resizeMode={'contain'} style={{width: 30, height: 30}}/>
-                </Pressable>
-                <View style={[{flex: 0.3,width: '100%', alignItems: 'flex-start', overflow: 'hidden'}]}>
+                <View style={[{flex: 0.8,width: '100%', alignItems: 'flex-start', overflow: 'hidden', justifyContent: 'center'}]}>
                     <Text style={styles.title}>Crear</Text>
                     <Text style={styles.title}>Nuevo Usuario</Text>
                 </View>
-                <View style={styles.boxContainer}>
+                <View style={[styles.boxContainer, {flex: 1, justifyContent: 'flex-start'}]}>
                     <TextInput value={registerName} onChangeText={e => setRegisterName(e)} style={[STYLES_INPUTS.inputText, STYLES_AUX.mb_3]} placeholder="Nombre"/>
                     <TextInput value={registerEmail} onChangeText={e => setRegisterEmail(e)} style={[STYLES_INPUTS.inputText, STYLES_AUX.mb_2]} placeholder="Correo"/>
                     <TextInput value={registerPass} onChangeText={e => setRegisterPass(e)} style={[STYLES_INPUTS.inputText, STYLES_AUX.mb_2]} placeholder="Contraseña" secureTextEntry={true}/>
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
         marginVertical: 10
     },
     title: {
-        fontSize: 40,
+        fontSize: 35,
         color: COLORS.dark
     }
 });

@@ -37,7 +37,7 @@ const SignInScreen = () => {
     return (
         showSignInForm? (
         <View style={styles.container}>
-            <View style={{flex: 1, paddingTop: 120, width: '100%', justifyContent: 'center', alignItems: 'center'}}>
+            <View style={{flex: 1, width: '100%', justifyContent: 'center', alignItems: 'center'}}>
                 <Text style={styles.title}>GoodBoy</Text>
             </View>
             <View style={{flex: 2, width: '100%', justifyContent: 'center', alignItems: 'center'}}>
@@ -57,9 +57,9 @@ const SignInScreen = () => {
                             <Text style={[STYLES_BUTTON.buttonBasicText, {color: COLORS.grayDark}]}>Google</Text>
                         </Pressable>
                     </View>
-                    <View style={[styles.boxContainer, {flexDirection: 'row', marginTop: 60}]}>
-                        <Text>No estas registrado?</Text>
-                        <Pressable onPress={() => setShowSignInForm(false)} style={{marginLeft: 10}}>
+                    <View style={[styles.boxContainer, {flexDirection: 'row', marginTop: 30}]}>
+                        <Text style={{color: COLORS.darkOcean}}>No estas registrado?</Text>
+                        <Pressable onPress={() => setShowSignInForm(false)} style={STYLES_AUX.ml_1}>
                             <Text style={{fontSize:16, color: COLORS.primary}}>Crear una cuenta</Text>
                         </Pressable>
                     </View>

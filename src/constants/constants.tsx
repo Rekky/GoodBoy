@@ -1,4 +1,4 @@
-import {Dimensions, StatusBar, StyleSheet} from "react-native";
+import {Dimensions, InputAccessoryView, StatusBar, StyleSheet} from "react-native";
 
 export const COLORS = {
     primary: '#ffae47',
@@ -162,12 +162,13 @@ export const STYLES_BUTTON = StyleSheet.create({
     },
     backButton: {
         position: 'absolute',
-        top: 10,
+        top: 5,
         left:0,
         width: 50,
         height: 50,
         justifyContent: 'center',
         alignItems: 'center',
+        zIndex: 1
     },
     backButtonIcon: {
         width: '100%',

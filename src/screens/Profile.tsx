@@ -44,7 +44,7 @@ export default function ProfileScreen({route, navigation}: any) {
 
     return(
         <View style={styles.container}>
-            <View style={[styles.profileImageContainer, styles.boxContainer]}>
+            <Pressable style={[styles.profileImageContainer, styles.boxContainer]} onPress={() => navigation.navigate('EditProfile')}>
                 <View style={{flex:0.5, width: '100%', height: '100%', justifyContent: 'flex-start', alignItems: 'center'}}>
                     <View style={{width: 95, height: 95}}>
                         <ProfileImage editable={false}/>
@@ -56,7 +56,9 @@ export default function ProfileScreen({route, navigation}: any) {
                         <StarsIndicator stars={0}/>
                     </View>
                 </View>
-            </View>
+                <Image source={require('../../assets/icons/next.png')} style={[STYLES_AUX.mr_2, {position:'absolute', right: 10, width: 12, height: 12, tintColor: COLORS.gray}]} />
+            </Pressable>
+
             <SafeAreaView style={{flex:1}}>
                 <ScrollView>
                     <Text style={[styles.boxContainer, STYLES_AUX.pt_3, STYLES_AUX.label]}>TU ANUNCIO</Text>

@@ -5,6 +5,7 @@ import {COLORS} from "../constants/constants";
 import Tabs from "./Tabs";
 import SettingsScreen from "../screens/Settings";
 import AdEditScreen from "../screens/AdEdit";
+import EditProfileScreen from "../screens/EditProfile";
 
 const Stack = createStackNavigator();
 
@@ -24,6 +25,7 @@ const SignInStack = ({user}: any) => {
                 <Stack.Screen name="Tabs" component={Tabs} />
                 <Stack.Screen name="Settings" component={SettingsScreen} />
                 <Stack.Screen name="AdEdit" component={AdEditScreen} initialParams={user}/>
+                <Stack.Screen name="EditProfile" component={EditProfileScreen} initialParams={user}/>
             </Stack.Navigator>
         </NavigationContainer>
     )
