@@ -57,7 +57,18 @@ export const createAd = async (userId: string, ad: Ad) => {
     return await response.set(ad);
 }
 
-export const saveImageToFirebaseStorage = async (userId: string, videoPath: string) => {
+export const saveAdImageToDB = async (id: string, imagePath: string) => {
+    try {
+        // const imageArray = {createdAt: new Date().toUTCString(), uri: imagePath};
+        await firebase.firestore().collection('ads').doc(id).set({
+            'image': imagePath,
+        }, {merge: true});
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export const saveImageToDB = async (userId: string, videoPath: string) => {
     try {
         const videoArray = {createdAt: new Date().toUTCString(), uri: videoPath};
         await firebase.firestore().collection('images').doc(userId).set({
@@ -69,7 +80,7 @@ export const saveImageToFirebaseStorage = async (userId: string, videoPath: stri
     }
 }
 
-export const saveProfileImageToFirebaseStorage = async (userId: string, filePath: string) => {
+export const saveProfileImageToDB = async (userId: string, filePath: string) => {
     try {
         const file = {uri: filePath};
         await firebase.firestore().collection('users').doc(userId).set({

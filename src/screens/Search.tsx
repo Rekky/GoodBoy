@@ -38,12 +38,12 @@ export default function SearchScreen() {
     return(
         <View style={styles.container}>
             <View style={styles.boxContainer}>
-                <View style={{position: 'relative', justifyContent: 'center', marginTop: 20}}>
-                    <TextInput style={STYLES_INPUTS.inputText} placeholder={'Buscar alojamiento o paseos'} onChangeText={(text: string) => setSearchText(text)} maxLength={100} value={searchText}/>
-                    <Pressable style={{position: 'absolute', right: 0, backgroundColor: COLORS.primary, height: '100%', width: 50, justifyContent: 'center', alignItems: 'center', borderTopRightRadius: 10, borderBottomRightRadius: 10}} onPress={null}>
-                        <Image source={require('../../assets/icons/search.png')} style={{width: 20, height: 20, tintColor: COLORS.white}}/>
-                    </Pressable>
-                </View>
+                {/*<View style={{position: 'relative', justifyContent: 'center', marginTop: 20}}>*/}
+                {/*    <TextInput style={STYLES_INPUTS.inputText} placeholder={'Buscar alojamiento o paseos'} onChangeText={(text: string) => setSearchText(text)} maxLength={100} value={searchText}/>*/}
+                {/*    <Pressable style={{position: 'absolute', right: 0, backgroundColor: COLORS.primary, height: '100%', width: 50, justifyContent: 'center', alignItems: 'center', borderTopRightRadius: 10, borderBottomRightRadius: 10}} onPress={null}>*/}
+                {/*        <Image source={require('../../assets/icons/search.png')} style={{width: 20, height: 20, tintColor: COLORS.white}}/>*/}
+                {/*    </Pressable>*/}
+                {/*</View>*/}
                 <Text style={[STYLES_AUX.label, STYLES_AUX.mt_2]}>Buscar</Text>
             </View>
             <View style={[styles.boxContainer, {flex: 1, paddingTop: 20}]}>

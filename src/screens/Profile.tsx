@@ -65,10 +65,10 @@ export default function ProfileScreen({route, navigation}: any) {
                     <View style={[STYLES_AUX.mt_2, styles.boxContainer, {backgroundColor: COLORS.white}]}>
                         <View style={{minHeight: 150, borderWidth: 0}}>
                             {myAds && myAds.length <= 0 && (
-                                <View>
-                                    <Text>No tienes anuncio</Text>
+                                <View style={{justifyContent: 'center', alignItems: 'center', flex:1}}>
+                                    <Text style={[STYLES_AUX.mb_2, {color: COLORS.grayDark, fontWeight: 'bold'}]}>No tienes anuncio</Text>
                                     <Pressable onPress={() => navigation.navigate('AdEdit')} style={[STYLES_BUTTON.buttonBasic, {backgroundColor: COLORS.dark, width: 100}]}>
-                                    <Text style={{color: COLORS.white}}>Anunciate</Text>
+                                        <Text style={{color: COLORS.white}}>Anunciate</Text>
                                     </Pressable>
                                 </View>
                             )}
