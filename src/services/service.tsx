@@ -54,7 +54,7 @@ export const getUserProfile = async (userId: string) => {
 export const createAd = async (ad: Ad) => {
     const response = await firebase.firestore().collection('ads').add(ad);
     ad.id = response.id;
-    return await response.set(ad);
+    return await response.set(ad, {merge: true});
 }
 
 export const updateAd = async (ad: Ad) => {

@@ -67,7 +67,7 @@ export default function AdEditScreen({navigation, route}: any) {
         newAd.image = image;
 
         try {
-            await createAd(ad.toJSON());
+            await createAd(newAd.toJSON());
             Alert.alert('Cuidador', 'Tu anuncio ha sido creado y publicado con exito!');
             navigation.goBack();
         } catch (e) {
@@ -76,7 +76,6 @@ export default function AdEditScreen({navigation, route}: any) {
     }
 
     const update = async () => {
-        console.log('update_____________', ad);
         const editAd: Ad = new Ad();
         editAd.id = ad.id;
         editAd.kind = kind;
@@ -138,7 +137,7 @@ export default function AdEditScreen({navigation, route}: any) {
                 }, async () => {
                     const refUrl = await task.snapshot.ref.getDownloadURL();
                     setImage(refUrl);
-                    await saveAdImageToDB(ad.id, refUrl);
+                    // await saveAdImageToDB(ad.id, refUrl);
                     setUploading(false);
                 });
                 ToastAndroid.show('Image uploaded!', ToastAndroid.SHORT);
@@ -169,7 +168,6 @@ export default function AdEditScreen({navigation, route}: any) {
                             <Pressable style={{justifyContent: 'center', alignItems: 'center', flex: 1}} onPress={() => pickImage()}>
                                 <Image source={require('../../assets/icons/camera.png')} resizeMode={'contain'} style={{width: 30, height: 30, tintColor: COLORS.grayDark}}/>
                                 <Text style={{color: COLORS.grayDark, fontSize: 10}}>Añade una foto</Text>
-                                <Text>image: {ad.image}</Text>
                             </Pressable>
                         )}
                         {image && !uploading && (
