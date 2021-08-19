@@ -51,10 +51,15 @@ export const getUserProfile = async (userId: string) => {
     }
 }
 
-export const createAd = async (userId: string, ad: Ad) => {
+export const createAd = async (ad: Ad) => {
     const response = await firebase.firestore().collection('ads').add(ad);
     ad.id = response.id;
     return await response.set(ad);
+}
+
+export const updateAd = async (ad: Ad) => {
+    const response = await firebase.firestore().collection('ads').doc(ad.id);
+    return await response.set(ad, {merge: true});
 }
 
 export const saveAdImageToDB = async (id: string, imagePath: string) => {

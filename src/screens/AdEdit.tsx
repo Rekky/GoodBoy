@@ -16,7 +16,7 @@ import {COLORS, STYLES_AUX, STYLES_BUTTON, STYLES_INPUTS} from "../constants/con
 import * as ImagePicker from 'expo-image-picker';
 import uuid from 'react-native-uuid';
 import {Ad} from "../models/Ad";
-import {createAd, saveAdImageToDB} from "../services/service";
+import {createAd, saveAdImageToDB, updateAd} from "../services/service";
 import firebase from "firebase";
 
 
@@ -46,32 +46,48 @@ export default function AdEditScreen({navigation, route}: any) {
         async function getAd() {
             const res = await firebase.firestore().collection('ads').where('author', '==', firebase.auth().currentUser?.uid).get();
             res.docs.map((item) => {
-                if(item.data().kind == 'lodging') {
-                    setAd(item.data());
-                    setKind(item.data().kind);
-                    setTitle(item.data().title);
-                    setDescription(item.data().description);
-                    setImage(item.data().image);
-                    setPrice(item.data().price);
-                }
+                setAd(item.data());
+                setKind(item.data().kind);
+                setTitle(item.data().title);
+                setDescription(item.data().description);
+                setImage(item.data().image);
+                setPrice(item.data().price);
             });
         }
         getAd();
     }, [])
 
     const save = async () => {
-        const ad: Ad = new Ad();
-        ad.kind = kind;
-        ad.title = title;
-        ad.author = firebase.auth().currentUser?.uid ? firebase.auth().currentUser?.uid : route.params.user.uid;
-        ad.description = description;
-        ad.price = price;
-        ad.image = image;
+        const newAd: Ad = new Ad();
+        newAd.kind = kind;
+        newAd.title = title;
+        newAd.author = firebase.auth().currentUser?.uid ? firebase.auth().currentUser?.uid : route.params.user.uid;
+        newAd.description = description;
+        newAd.price = price;
+        newAd.image = image;
 
         try {
-            if(ad.author)
-            await createAd(ad.author, ad.toJSON());
+            await createAd(ad.toJSON());
             Alert.alert('Cuidador', 'Tu anuncio ha sido creado y publicado con exito!');
+            navigation.goBack();
+        } catch (e) {
+            Alert.alert('', e);
+        }
+    }
+
+    const update = async () => {
+        console.log('update_____________', ad);
+        const editAd: Ad = new Ad();
+        editAd.id = ad.id;
+        editAd.kind = kind;
+        editAd.title = title;
+        editAd.author = firebase.auth().currentUser?.uid ? firebase.auth().currentUser?.uid : route.params.user.uid;
+        editAd.description = description;
+        editAd.price = price;
+        editAd.image = image;
+
+        try {
+            await updateAd(editAd.toJSON());
             navigation.goBack();
         } catch (e) {
             Alert.alert('', e);
@@ -182,9 +198,16 @@ export default function AdEditScreen({navigation, route}: any) {
                         <TextInput style={STYLES_INPUTS.inputText} placeholder={'Precio'} onChangeText={(text: string) => setPrice(parseInt(text))} keyboardType={"decimal-pad"} value={isNaN(price) ? '0' : price.toString()}/>
                     </View>
                     <View style={[styles.boxContainer, {justifyContent: 'center', alignItems: 'center', flexDirection: 'row', paddingBottom: 30}]}>
+                        {ad.id && (
+                            <Pressable onPress={update} style={[STYLES_BUTTON.buttonBasic, STYLES_AUX.mt_3, {flex: 1, backgroundColor: COLORS.dark}]}>
+                                <Text style={[STYLES_AUX.label, {color: COLORS.white}]}>Guardar</Text>
+                            </Pressable>
+                        )}
+                        {!ad.id && (
                         <Pressable onPress={save} style={[STYLES_BUTTON.buttonBasic, STYLES_AUX.mt_3, {flex: 1, backgroundColor: COLORS.dark}]}>
                             <Text style={[STYLES_AUX.label, {color: COLORS.white}]}>Guardar</Text>
                         </Pressable>
+                        )}
                         <Pressable onPress={remove} style={[STYLES_BUTTON.buttonBasic, STYLES_AUX.mt_3, {marginLeft: 10, flex: 0.2, backgroundColor: COLORS.red}]}>
                             <Image source={require('../../assets/icons/trash.png')} style={[STYLES_AUX.mr_2, {width: 25, height: 25, tintColor: COLORS.white, position: 'absolute'}]} />
                         </Pressable>
