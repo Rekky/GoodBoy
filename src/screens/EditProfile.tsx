@@ -127,7 +127,6 @@ export default function EditProfileScreen({route, navigation}: any) {
                         </View>
 
                         <Text style={[STYLES_AUX.pt_2, STYLES_AUX.label]}>Nombre</Text>
-                        <Text>{avatar}</Text>
                         <TextInput value={name} onChangeText={e => setName(e)} style={[STYLES_INPUTS.inputText, STYLES_AUX.mb_2]} placeholder="Nombre"/>
 
                         <Text style={[STYLES_AUX.pt_2, STYLES_AUX.label]}>Teléfono</Text>
