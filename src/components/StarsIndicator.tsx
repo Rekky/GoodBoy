@@ -8,12 +8,12 @@ export const StarsIndicator = ({stars, editable = false, onChange}: {stars: numb
 
     return (
         <View style={styles.container}>
-            <View style={{position: 'absolute', width: 'auto', bottom: 0, right: 0, flexDirection: 'row'}}>
+            <View style={{position: 'absolute', width: 'auto', bottom: 0, right: 10, flexDirection: 'row'}}>
                 {starArray.map((item) =>
                     (<Image key={item} style={[styles.star]} source={require('../../assets/icons/star.png')}/>)
                 )}
             </View>
-            <View style={{position: 'absolute', width: 'auto', bottom: 0, right: 0, flexDirection: 'row'}}>
+            <View style={{position: 'absolute', width: 'auto', bottom: 0, right: 10, flexDirection: 'row'}}>
                 {starArray.map((item) =>
                     item < stars && (
                         <Image key={item} style={[styles.star, {tintColor: COLORS.yellow}]} source={require('../../assets/icons/star.png')}/>

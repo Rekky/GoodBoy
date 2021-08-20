@@ -1,5 +1,5 @@
 import React from "react";
-import {Image} from "react-native";
+import {Image, Text, View} from "react-native";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import HomeScreen from "../screens/Home";
 import {COLORS} from "../constants/constants";
@@ -18,7 +18,7 @@ const Tabs = () => {
             {(user) => (
                 <Tab.Navigator
                     screenOptions={{
-                        headerShown: false,
+                        headerShown: true,
                         tabBarShowLabel: false,
                         tabBarStyle: {
                             position: 'absolute',
@@ -35,6 +35,7 @@ const Tabs = () => {
                         component={HomeScreen}
                         initialParams={{user: user}}
                         options={{
+                            headerTitle: () => <Text style={{fontSize: 20}}>GoodBoy</Text>,
                             tabBarIcon: ({focused}) => (<Image source={require('../../assets/icons/home.png')} resizeMode={'contain'} style={{width:25, height:25, tintColor: focused ? COLORS.primary : COLORS.grayDark}}/>)
                         }}/>
                     <Tab.Screen
@@ -42,6 +43,7 @@ const Tabs = () => {
                         component={SearchScreen}
                         initialParams={{user: user}}
                         options={{
+                            headerTitle: () => <Text style={{fontSize: 20}}>Busqueda</Text>,
                             tabBarIcon: ({focused}) => (<Image source={require('../../assets/icons/search.png')} resizeMode={'contain'} style={{width:25, height:25, tintColor: focused ? COLORS.primary : COLORS.grayDark}}/>)
                         }}/>
                     <Tab.Screen
@@ -49,6 +51,7 @@ const Tabs = () => {
                         component={ChatsScreen}
                         initialParams={{user: user}}
                         options={{
+                            headerTitle: () => <Text style={{fontSize: 20}}>Chats</Text>,
                             tabBarIcon: ({focused}) => (<Image source={require('../../assets/icons/chat.png')} resizeMode={'contain'} style={{width:25, height:25, tintColor: focused ? COLORS.primary : COLORS.grayDark}}/>)
                         }}/>
                     <Tab.Screen
@@ -56,6 +59,7 @@ const Tabs = () => {
                         component={ProfileScreen}
                         initialParams={{user: user}}
                         options={{
+                            headerTitle: () => <Text style={{fontSize: 20}}>Mi Perfil</Text>,
                             tabBarIcon: ({focused}) => (<Image source={require('../../assets/icons/user.png')} resizeMode={'contain'} style={{width:25, height:25, tintColor: focused ? COLORS.primary : COLORS.grayDark}}/>)
                         }}/>
                 </Tab.Navigator>

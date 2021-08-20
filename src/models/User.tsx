@@ -3,7 +3,11 @@ export class User {
     name: string | null = null;
     email: string | null = null;
     description: string | null = null;
-    profile: {uri: string} | null = null;
+    phone: string | null = null;
+    city: string | null = null;
+    address: string | null = null;
+    cp: string | null = null;
+    avatar: string | null = null;
 
     constructor(id?: string) {
         this.id = id ? id : null;
@@ -15,7 +19,11 @@ export class User {
         json.name = this.name;
         json.email = this.email;
         json.description = this.description;
-        json.profile = this.profile;
+        json.phone = this.phone;
+        json.city = this.city;
+        json.address = this.address;
+        json.cp = this.cp;
+        json.avatar = this.avatar;
         return json;
     }
 }

@@ -6,6 +6,8 @@ import {StarsIndicator} from "./StarsIndicator";
 
 export const AdCard = ({ad}: {ad: Ad}) => {
 
+    console.log(ad)
+
     return(
         <Pressable style={styles.card} onPress={null}>
             <View style={{height: 125, justifyContent: 'center', alignItems: 'center'}}>

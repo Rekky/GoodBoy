@@ -47,7 +47,7 @@ export default function ProfileScreen({route, navigation}: any) {
             <Pressable style={[styles.profileImageContainer, styles.boxContainer]} onPress={() => navigation.navigate('EditProfile')}>
                 <View style={{flex:0.5, width: '100%', height: '100%', justifyContent: 'flex-start', alignItems: 'center'}}>
                     <View style={{width: 95, height: 95}}>
-                        <ProfileImage editable={false}/>
+                        <ProfileImage editable={false} uri={profile.avatar}/>
                     </View>
                 </View>
                 <View style={[STYLES_AUX.ml_2,{flex:1,width: '100%', height: '100%', justifyContent: 'flex-start'}]}>
@@ -112,8 +112,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
     },
     profileImageContainer: {
-        paddingTop: 30,
-        height: 130,
+        height: 100,
         width: '100%',
         justifyContent: 'flex-start',
         alignItems: 'center',

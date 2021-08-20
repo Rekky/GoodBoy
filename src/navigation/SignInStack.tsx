@@ -6,6 +6,7 @@ import Tabs from "./Tabs";
 import SettingsScreen from "../screens/Settings";
 import AdEditScreen from "../screens/AdEdit";
 import EditProfileScreen from "../screens/EditProfile";
+import {Text} from "react-native";
 
 const Stack = createStackNavigator();
 
@@ -21,11 +22,14 @@ const SignInStack = ({user}: any) => {
 
     return (
         <NavigationContainer theme={MyTheme}>
-            <Stack.Navigator headerMode="none">
-                <Stack.Screen name="Tabs" component={Tabs} />
+            <Stack.Navigator screenOptions={{headerShown: false}}>
+                <Stack.Screen name="Tabs" component={Tabs}/>
                 <Stack.Screen name="Settings" component={SettingsScreen} />
                 <Stack.Screen name="AdEdit" component={AdEditScreen} initialParams={user}/>
-                <Stack.Screen name="EditProfile" component={EditProfileScreen} initialParams={user}/>
+                <Stack.Screen name="EditProfile" component={EditProfileScreen} initialParams={user} options={{
+                    headerShown: true,
+                    headerTitle: () => <Text style={{fontSize: 20}}></Text>
+                }}/>
             </Stack.Navigator>
         </NavigationContainer>
     )

@@ -43,12 +43,8 @@ export const updateUser = async (user: any) => {
     }
 }
 
-export const getUserProfile = async (userId: string) => {
-    try {
-        return await firebase.firestore().collection('users').doc(userId);
-    } catch (e) {
-        console.log(e);
-    }
+export const saveUserProfile = async (userId: string, data: any) => {
+    return await firebase.firestore().collection('users').doc(userId).set(data, {merge: true});
 }
 
 export const createAd = async (ad: Ad) => {
