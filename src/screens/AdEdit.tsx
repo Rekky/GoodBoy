@@ -15,9 +15,10 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import {COLORS, STYLES_AUX, STYLES_BUTTON, STYLES_INPUTS} from "../constants/constants";
 import * as ImagePicker from 'expo-image-picker';
 import uuid from 'react-native-uuid';
-import {Ad} from "../models/Ad";
 import {createAd, saveAdImageToDB, updateAd} from "../services/service";
 import firebase from "firebase";
+import {User} from "../models/User";
+import {Ad} from "../models/Ad";
 
 
 export default function AdEditScreen({navigation, route}: any) {
@@ -30,6 +31,7 @@ export default function AdEditScreen({navigation, route}: any) {
     const [price, setPrice] = useState(0);
     const [image, setImage]: string | any = useState(null);
     const [scheduler, setScheduler] = useState('');
+    const [user, setUser]: any = useState(null);
 
     // dropdowm
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -44,9 +46,20 @@ export default function AdEditScreen({navigation, route}: any) {
 
     useEffect(() => {
         async function getAd() {
-            const res = await firebase.firestore().collection('ads').where('author', '==', firebase.auth().currentUser?.uid).get();
-            res.docs.map((item) => {
-                setAd(item.data());
+            //get user
+            const responseUser = await firebase.firestore().collection('users').doc(firebase.auth().currentUser?.uid).get();
+            let resUser: User | any = new User();
+            resUser = {...responseUser.data()};
+            setUser(resUser);
+
+            // get ad
+            const response = await firebase.firestore().collection('ads').where('author', '==', firebase.auth().currentUser?.uid).get();
+            response.docs.map((item: any) => {
+                let resAd: Ad | any = new Ad();
+                resAd = {...item.data()};
+                resAd.user = user.toJSON();
+
+                setAd(resAd);
                 setKind(item.data().kind);
                 setTitle(item.data().title);
                 setDescription(item.data().description);
@@ -65,6 +78,7 @@ export default function AdEditScreen({navigation, route}: any) {
         newAd.description = description;
         newAd.price = price;
         newAd.image = image;
+        newAd.user = user;
 
         try {
             await createAd(newAd.toJSON());
@@ -80,10 +94,10 @@ export default function AdEditScreen({navigation, route}: any) {
         editAd.id = ad.id;
         editAd.kind = kind;
         editAd.title = title;
-        editAd.author = firebase.auth().currentUser?.uid ? firebase.auth().currentUser?.uid : route.params.user.uid;
         editAd.description = description;
         editAd.price = price;
         editAd.image = image;
+        editAd.user = user;
 
         try {
             await updateAd(editAd.toJSON());
@@ -151,11 +165,6 @@ export default function AdEditScreen({navigation, route}: any) {
         <View style={styles.container}>
             <SafeAreaView>
                 <ScrollView>
-                    <View style={{paddingTop: 80}}>
-                        <Pressable onPress={() => navigation.goBack()} style={[STYLES_BUTTON.backButton, {left: 10}]}>
-                            <Image source={require('../../assets/icons/arrowLeft.png')} resizeMode={'contain'} style={{width: 40, height: 40}}/>
-                        </Pressable>
-                    </View>
                     <View style={styles.photoContainer}>
                         {uploading && (
                             <View style={{position: 'absolute', backgroundColor: COLORS.gray, width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center', zIndex: 1, flexDirection: 'column'}}>
@@ -218,7 +227,6 @@ export default function AdEditScreen({navigation, route}: any) {
 const styles = StyleSheet.create({
     container: {
         flex:1,
-        paddingTop: StatusBar.currentHeight,
     },
     boxContainer: {
         paddingHorizontal: 15,

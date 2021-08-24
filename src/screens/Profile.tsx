@@ -8,8 +8,7 @@ import {
     SafeAreaView,
     ScrollView,
     Image,
-    FlatList,
-    TouchableOpacity
+    FlatList
 } from "react-native";
 import {COLORS, STYLES_AUX, STYLES_BUTTON} from "../constants/constants";
 import ProfileImage from "../components/ProfileImage";

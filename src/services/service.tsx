@@ -54,8 +54,7 @@ export const createAd = async (ad: Ad) => {
 }
 
 export const updateAd = async (ad: Ad) => {
-    const response = await firebase.firestore().collection('ads').doc(ad.id);
-    return await response.set(ad, {merge: true});
+    return await firebase.firestore().collection('ads').doc(ad.id).set(ad, {merge: true});
 }
 
 export const saveAdImageToDB = async (id: string, imagePath: string) => {

@@ -12,7 +12,7 @@ export const AuthContext = createContext(null);
 
 const AuthNavigator = () => {
     const [initializing, setInitializing] = useState(true);
-    const [user, setUser] = useState(true);
+    const [user, setUser]: any = useState(true);
 
     function onAuthStateChanged(result: any) {
         setUser(result);

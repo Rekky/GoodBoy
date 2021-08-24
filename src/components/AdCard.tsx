@@ -6,8 +6,6 @@ import {StarsIndicator} from "./StarsIndicator";
 
 export const AdCard = ({ad}: {ad: Ad}) => {
 
-    console.log(ad)
-
     return(
         <Pressable style={styles.card} onPress={null}>
             <View style={{height: 125, justifyContent: 'center', alignItems: 'center'}}>
@@ -17,10 +15,15 @@ export const AdCard = ({ad}: {ad: Ad}) => {
                 {ad.image && (
                     <Image source={{uri: ad.image}} style={{width: '100%', height: '100%'}} />
                 )}
-                <Image style={{position: "absolute", top: 85, width: 70, height: 70, borderRadius: 50, borderWidth: 3, borderColor: COLORS.white}} source={require('../../assets/others/unnamed.png')} />
+                {ad.user && (
+                    <Image style={styles.avatar} source={{uri: ad.user.avatar}} />
+                )}
+                {!ad.user && (
+                    <Image style={styles.avatar} source={require('../../assets/others/unnamed.png')} />
+                )}
             </View>
             <View style={{height: 155, padding: 10}}>
-                <Text style={styles.author}>{ad.author}</Text>
+                <Text style={styles.author}>{ad.user?.name}</Text>
                 <Text style={{color: COLORS.grayDark}}>{ad.title}</Text>
                 <Text style={{color: COLORS.grayDark}}>{ad.description}</Text>
                 <Text style={{color: COLORS.greenDark, fontWeight: 'bold'}}>{ad.price}€</Text>
@@ -49,5 +52,14 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         textTransform: 'capitalize',
         color: COLORS.darkOcean
+    },
+    avatar: {
+        position: "absolute",
+        top: 85,
+        width: 70,
+        height: 70,
+        borderRadius: 50,
+        borderWidth: 3,
+        borderColor: COLORS.white
     }
 });

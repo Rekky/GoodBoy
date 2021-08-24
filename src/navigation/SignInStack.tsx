@@ -24,11 +24,17 @@ const SignInStack = ({user}: any) => {
         <NavigationContainer theme={MyTheme}>
             <Stack.Navigator screenOptions={{headerShown: false}}>
                 <Stack.Screen name="Tabs" component={Tabs}/>
-                <Stack.Screen name="Settings" component={SettingsScreen} />
-                <Stack.Screen name="AdEdit" component={AdEditScreen} initialParams={user}/>
+                <Stack.Screen name="Settings" component={SettingsScreen} options={{
+                    headerShown: true,
+                    headerTitle: () => <Text style={{fontSize: 20}}>Ajustes</Text>
+                }}/>
+                <Stack.Screen name="AdEdit" component={AdEditScreen} initialParams={user} options={{
+                    headerShown: true,
+                    headerTitle: () => <Text style={{fontSize: 20}}>Mis Servicios</Text>
+                }}/>
                 <Stack.Screen name="EditProfile" component={EditProfileScreen} initialParams={user} options={{
                     headerShown: true,
-                    headerTitle: () => <Text style={{fontSize: 20}}></Text>
+                    headerTitle: () => <Text style={{fontSize: 20}}>Mi Perfil</Text>
                 }}/>
             </Stack.Navigator>
         </NavigationContainer>
